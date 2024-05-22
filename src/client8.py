@@ -35,23 +35,32 @@ x_train, y_train = getData(dist, x_train, y_train)
 
 # Define Flower client
 class FlowerClient(fl.client.NumPyClient):
+    def __init__(self, client_name):
+        self.client_name = client_name
+
     def get_parameters(self,config):
         return model.get_weights()
 
     def fit(self, parameters, config):
         model.set_weights(parameters)
-        print("Aggregated Weights: ",model.get_weights()[-1])
-        r = model.fit(x_train, y_train, epochs=2, validation_data=(x_test, y_test), verbose=0)
-        print("Weights: ",model.get_weights()[-1])
-
+        print(f"Client {self.client_name} - Aggregated Weights (last layer): ", model.get_weights()[-1])
+        
+        r = model.fit(x_train, y_train, epochs=5, validation_data=(x_test, y_test), verbose=0)
+        
         hist = r.history
-        print("Fit history : " ,hist)
-        return model.get_weights(), len(x_train), {}
+        print(f"Client {self.client_name} - Fit history: ", hist)
+        print(f"Client {self.client_name} - Weights after training (last layer): ", model.get_weights()[-1])
+        
+        return model.get_weights(), len(x_train), {"client_name": self.client_name}
+
 
     def evaluate(self, parameters, config):
         model.set_weights(parameters)
         loss, accuracy = model.evaluate(x_test, y_test, verbose=0)
-        print("Eval accuracy : ", accuracy)
-        return loss, len(x_test), {"accuracy": accuracy}
+        print(f"Client {self.client_name} - Eval accuracy: ", accuracy)
+        return loss, len(x_test), {"accuracy": accuracy, "client_name": self.client_name}
 
-fl.client.start_client(server_address="[::]:8080", client=FlowerClient().to_client())
+
+client_name = "client8"  
+client = FlowerClient(client_name=client_name)
+fl.client.start_numpy_client(server_address="[::]:8080", client=client)

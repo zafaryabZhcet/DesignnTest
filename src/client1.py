@@ -61,6 +61,6 @@ class FlowerClient(fl.client.NumPyClient):
         return loss, len(x_test), {"accuracy": accuracy, "client_name": self.client_name}
 
 
-client_name = "client0"  
+client_name = "client1"  
 client = FlowerClient(client_name=client_name)
 fl.client.start_numpy_client(server_address="[::]:8080", client=client)
