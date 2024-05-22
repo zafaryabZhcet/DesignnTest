@@ -53,11 +53,9 @@ class SaveModelStrategy(fl.server.strategy.FedAvg):
         return aggregated_weights
 
     def get_classification_number(self, client_name):
-        # Derive classification number from client name
         return int(client_name.replace('client', ''))
 
     def extract_last_layer_weights(self, parameters):
-        # Assuming parameters is a list of numpy arrays, extract the last layer's weights
         return parameters[-1].flatten().tolist()
 
     def save_weights_to_csv(self, rnd):
