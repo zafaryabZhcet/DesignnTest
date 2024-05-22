@@ -10,9 +10,9 @@ from utils import get_dataset,load_model
 
 model = load_model()
 
-x_train, y_train = get_dataset(dataset_path='dataset/train/client0', training=True)
+x_train, y_train = get_dataset(dataset_path='dataset/train/client0/', training=True)
 
-x_test, y_test = get_dataset(dataset_path='dataset/test')
+x_test, y_test = get_dataset(dataset_path='dataset/test/')
 
 
 
@@ -45,5 +45,5 @@ class FlowerClient(fl.client.NumPyClient):
 
 
 client_name = "client0"  
-client = FlowerClient(client_name=client_name)
-fl.client.start_numpy_client(server_address="[::]:8080", client=client)
+client = FlowerClient(client_name=client_name).to_client()
+fl.client.start_client(server_address="localhost:8080", client=client)

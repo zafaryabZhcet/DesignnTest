@@ -39,4 +39,8 @@ class SaveModelStrategy(fl.server.strategy.FedAvg):
 # Create strategy and run server
 strategy = SaveModelStrategy()
 
-fl.server.start_server(config=fl.server.ServerConfig(num_rounds=5), strategy=strategy)
+fl.server.start_server(
+    server_address="localhost:8080",
+    config=fl.server.ServerConfig(num_rounds=5), 
+    strategy=strategy
+    )

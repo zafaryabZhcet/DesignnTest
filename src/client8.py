@@ -42,5 +42,5 @@ class FlowerClient(fl.client.NumPyClient):
 
 
 client_name = "client8"  
-client = FlowerClient(client_name=client_name)
-fl.client.start_numpy_client(server_address="[::]:8080", client=client)
+client = FlowerClient(client_name=client_name).to_client()
+fl.client.start_client(server_address="localhost:8080", client=client)

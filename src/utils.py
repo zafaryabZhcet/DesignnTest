@@ -28,6 +28,7 @@ def get_dataset(dataset_path: str, training=True, client_num = None, im_size=32)
                     Y.append(int(label))
                 except:
                     print(datas_path+'/'+data)
+                    
 
         # Create dateset:
         X = np.array(X).astype('float32')
