@@ -19,7 +19,7 @@ def load_raw_data(df, sampling_rate, path):
     return data
 
 
-def get_data(target=0, client_num=0):
+def get_dataset(target=0, client=0):
 
     path='ECG_data/'
     path_csv = 'annotation_fed.csv'
@@ -28,7 +28,7 @@ def get_data(target=0, client_num=0):
     # load and convert annotation data
     Y = pd.read_csv(path_csv)
     Y_data = Y[Y['diagnostic_superclass']==target]
-    start = client_num*200
+    start = client*200
     Y_data = Y_data.iloc[start:start+200]
     Y = Y_data['diagnostic_superclass'].values
 
