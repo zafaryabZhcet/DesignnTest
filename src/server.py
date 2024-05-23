@@ -30,12 +30,18 @@ class SaveModelStrategy(fl.server.strategy.FedAvg):
 
         # self.save_weights_to_csv(rnd)
         print("clients weights info: ", self.client_weights)
-        return aggregated_weights
 
+        with open("rnd.txt", 'w') as file:
+            file.write(str(rnd))
+        file.close()
+
+        return aggregated_weights
+    
     def get_classification_number(self, client_name):
         # Derive classification number from client name
         return int(client_name.replace('client', ''))
     
+
 # Create strategy and run server
 strategy = SaveModelStrategy()
 

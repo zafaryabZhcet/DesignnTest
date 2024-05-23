@@ -21,7 +21,7 @@ def get_dataset(dataset_path: str, training=True, client_num = None, im_size=32)
         Y = []
         for i, label in enumerate(labels):
             datas_path = dataset_path+'/'+label
-            for data in listdir(datas_path)[:10]:
+            for data in listdir(datas_path):#[:100]:
                 try:
                     img = get_img(datas_path+'/'+data, im_size)
                     X.append(img)
@@ -40,7 +40,7 @@ def get_dataset(dataset_path: str, training=True, client_num = None, im_size=32)
         Y = []
         for i, label in enumerate(labels):
             datas_path = dataset_path+'/'+label
-            for data in listdir(datas_path)[:10]:
+            for data in listdir(datas_path):#[:100]:
                 try:
                     img = get_img(datas_path+'/'+data, im_size)
                     X.append(img)
