@@ -1,5 +1,5 @@
 import os
-num_copies = 1
+num_copies = 50
 
 path = 'D:/Github/DesignnTest/src/client0.py'
 
@@ -8,9 +8,12 @@ with open(path, 'r') as file:
     content = file.read()
 
 # Loop to create copies and modify the client_name variable
-for i in range(10,num_copies + 10):
+for i in range(1, num_copies):
     new_client_name = f"client{i}"
     new_content = content.replace('client0', new_client_name)
+    new_content = new_content.replace(f'client=0', f'client={i}')
+    if i>29:
+        new_content = new_content.replace(f'target=0', f'target=1')
     print(f'new client: {new_client_name}')
     
     # Write the new content to the new file

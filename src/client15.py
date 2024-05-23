@@ -10,7 +10,7 @@ os.environ["CUDA_VISIBLE_DEVICES"] = ""
 # Load and compile Keras model
 model = load_model()
 
-x_train, y_train, x_test, y_test = get_dataset(target=0, client=10)
+x_train, y_train, x_test, y_test = get_dataset(target=0, client=15)
 
 # Define Flower client
 class FlowerClient(fl.client.NumPyClient):
@@ -52,6 +52,6 @@ class FlowerClient(fl.client.NumPyClient):
         return loss, len(x_test), {"accuracy": accuracy, "client_name": self.client_name}
 
 
-client_name = "client10"  
+client_name = "client15"  
 client = FlowerClient(client_name=client_name).to_client()
 fl.client.start_client(server_address="localhost:8080", client=client)
