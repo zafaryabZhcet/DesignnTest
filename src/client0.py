@@ -4,20 +4,13 @@ from tensorflow import keras
 import numpy as np
 import sys
 from utils import get_dataset,load_model
-
 import os 
 os.environ["CUDA_VISIBLE_DEVICES"] = ""
 
-
 # Load and compile Keras model
-
 model = load_model()
 
-x_train, y_train = get_dataset(dataset_path='dataset/train/client0/', training=True)
-
-x_test, y_test = get_dataset(dataset_path='dataset/test/')
-
-
+x_train, y_train, x_test, y_test = get_dataset(target=0, client=0)
 
 # Define Flower client
 class FlowerClient(fl.client.NumPyClient):
@@ -25,6 +18,12 @@ class FlowerClient(fl.client.NumPyClient):
         self.client_name = client_name
 
     def get_parameters(self,config):
+        if not os.path.exists("/rnd.txt"):
+            weights_path = './weights_active.h5'
+            # Load the weights into the model
+            print("\n***************Load Active learnings weights*****************\n")
+            return model.load_weights(weights_path)
+        
         return model.get_weights()
 
     def fit(self, parameters, config):
@@ -34,8 +33,9 @@ class FlowerClient(fl.client.NumPyClient):
 
         print(rnd)
         model.set_weights(parameters)
+        print(f"Client {self.client_name} - Aggregated Weights (last layer): ", model.get_weights()[-1])
         
-        r = model.fit(x_train[rnd*100:rnd*(100)+100], y_train[rnd*100:rnd*(100)+100], epochs=1,batch_size=8, validation_data=(x_test, y_test), verbose=0)
+        r = model.fit(x_train[rnd*20:rnd*(20)+20], y_train[rnd*20:rnd*(20)+20], epochs=1,batch_size=8, validation_data=(x_test, y_test), verbose=0)
         # r = model.fit(x_train, y_train, epochs=1,batch_size=8, validation_data=(x_test, y_test), verbose=0)
         
         hist = r.history
