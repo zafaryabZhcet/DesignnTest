@@ -34,7 +34,7 @@ def get_dataset(target=0, client=0):
 
     # Load raw signal data
     X = load_raw_data(Y_data, sampling_rate, path)
-    Y = tf.keras.utils.to_categorical(2)
+    Y = tf.keras.utils.to_categorical(Y,2)
     x_test, y_test = np.load('./X_test.npy'), np.load('./Y_test.npy')
 
     return X, Y,  x_test, y_test

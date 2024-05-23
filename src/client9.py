@@ -18,12 +18,7 @@ class FlowerClient(fl.client.NumPyClient):
         self.client_name = client_name
 
     def get_parameters(self,config):
-        if not os.path.exists("/rnd.txt"):
-            weights_path = './weights_active.h5'
-            # Load the weights into the model
-            print("\n***************Load Active learnings weights*****************\n")
-            return model.load_weights(weights_path)
-        
+
         return model.get_weights()
 
     def fit(self, parameters, config):
@@ -32,6 +27,12 @@ class FlowerClient(fl.client.NumPyClient):
         file.close()
 
         print(rnd)
+        # if rnd==0:
+        #     weights_path = './weights_active.h5'
+        #      # Load the weights into the model
+        #     print("\n***************Load Active learnings weights*****************\n")
+        #     model.load_weights(weights_path)
+        # else:
         model.set_weights(parameters)
         print(f"Client {self.client_name} - Aggregated Weights (last layer): ", model.get_weights()[-1])
         
