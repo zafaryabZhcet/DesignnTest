@@ -1,3 +1,4 @@
 dataset/*
 *.rar
 weights/*
+ECG_data/*

@@ -160,7 +160,7 @@ INFO :      Sent reply
 Client client4 - Eval accuracy:  0.5
 INFO :      Sent reply
 INFO :      
-INFO :      [RUN 0, ROUND ]
+INFO :      [RUN 0, ROUND ]69
 INFO :      Received: train message 4f4dc879-d31f-45c2-b719-e753b5379e90
 1
 INFO :

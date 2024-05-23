@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# Disable GPU
 # Run Python scripts in the background
 python ./src/client0.py &
 python ./src/client1.py &

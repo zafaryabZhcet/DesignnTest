@@ -22,14 +22,19 @@ class SaveModelStrategy(fl.server.strategy.FedAvg):
         for client_res in results:
             client_id = client_res[1].metrics["client_name"]
             weights = client_res[1].parameters
-            np.savez(f"./weights/round-{rnd}-weights-{client_id}.npz", weights)
+            # np.savez(f"./weights/round-{rnd}-weights-{client_id}.npz", weights)
+            client_weights_list = fl.common.parameters_to_ndarrays(weights)
+            
+            # Convert numpy arrays to lists
+            client_weights_as_lists = [w.tolist() for w in client_weights_list]
+            
+            # Save client weights as lists
+            print(f"Saving round {rnd} client {client_id} weights as lists...")
+            np.savez(f"./weights/round-{rnd}-client-{client_id}.npz", *client_weights_as_lists)
            
-        if aggregated_weights is not None:
-            print(f"Saving round {rnd} aggregated weights...")
-            np.savez(f"./weights/round-{rnd}-aggregated-weights.npz", aggregated_weights)
-
-        # self.save_weights_to_csv(rnd)
-        print("clients weights info: ", self.client_weights)
+        # if aggregated_weights is not None:
+        #     print(f"Saving round {rnd} aggregated weights...")
+        #     np.savez(f"./weights/round-{rnd}-aggregated-weights.npz", aggregated_weights)
 
         with open("rnd.txt", 'w') as file:
             file.write(str(rnd))
@@ -47,6 +52,10 @@ strategy = SaveModelStrategy()
 
 fl.server.start_server(
     server_address="localhost:8080",
-    config=fl.server.ServerConfig(num_rounds=5), 
+    config=fl.server.ServerConfig(num_rounds=10), 
     strategy=strategy
     )
+
+with open("rnd.txt", 'w') as file:
+    file.write(str(0))
+file.close()

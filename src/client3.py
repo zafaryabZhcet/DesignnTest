@@ -5,6 +5,8 @@ import numpy as np
 import sys
 from utils import get_dataset,load_model
 
+import os 
+os.environ["CUDA_VISIBLE_DEVICES"] = ""
 
 # Load and compile Keras model
 model = load_model()
@@ -31,6 +33,7 @@ class FlowerClient(fl.client.NumPyClient):
         print(f"Client {self.client_name} - Aggregated Weights (last layer): ", model.get_weights()[-1])
         
         r = model.fit(x_train[rnd*100:rnd*(100)+100], y_train[rnd*100:rnd*(100)+100], epochs=1,batch_size=8, validation_data=(x_test, y_test), verbose=0)
+        # r = model.fit(x_train, y_train, epochs=1,batch_size=8, validation_data=(x_test, y_test), verbose=0)
         
         hist = r.history
         print(f"Client {self.client_name} - Fit history: ", hist)
