@@ -31,10 +31,6 @@ class SaveModelStrategy(fl.server.strategy.FedAvg):
             # Save client weights as lists
             print(f"Saving round {rnd} client {client_id} weights as lists...")
             np.savez(f"./weights/round-{rnd}-client-{client_id}.npz", *client_weights_as_lists)
-           
-        # if aggregated_weights is not None:
-        #     print(f"Saving round {rnd} aggregated weights...")
-        #     np.savez(f"./weights/round-{rnd}-aggregated-weights.npz", aggregated_weights)
 
         with open("rnd.txt", 'w') as file:
             file.write(str(rnd))
