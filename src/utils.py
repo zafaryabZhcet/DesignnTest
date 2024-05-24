@@ -24,12 +24,15 @@ def get_dataset(target=0, client=0):
     path='ECG_data/'
     path_csv = 'annotation_fed.csv'
     sampling_rate=100
-
+    sample_size = 300
     # load and convert annotation data
     Y = pd.read_csv(path_csv)
     Y_data = Y[Y['diagnostic_superclass']==target]
-    start = client*200
-    Y_data = Y_data.iloc[start:start+200]
+    if target==1:
+        client -= 30
+        sample_size = 350
+    start = client*sample_size
+    Y_data = Y_data.iloc[start:start+sample_size]
     Y = Y_data['diagnostic_superclass'].values
 
     # Load raw signal data
