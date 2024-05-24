@@ -21,10 +21,11 @@ def load_raw_data(df, sampling_rate, path):
 
 def get_dataset(target=0, client=0):
 
-    path='ECG_data/'
-    path_csv = 'filtered_data.csv'
+    path='./ECG_data/'
+    path_csv = './filtered_data.csv'
     sampling_rate=100
     sample_size = 300
+  
     # load and convert annotation data
     Y = pd.read_csv(path_csv)
     Y_data = Y[Y['diagnostic_superclass']==target]

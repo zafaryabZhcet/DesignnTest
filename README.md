@@ -1,6 +1,6 @@
 # DesignnTest
 
-## Server's best result
+## Server's best result for mnist
 Keys: 10 clients, 3 for 0 and 7 for 1. Each round training on different dataset sample.
 local training epoch is 1. Round num = 5. 
 Future: Increase round_num, more local epochs, larger sample size, update the base model.
