@@ -48,7 +48,7 @@ strategy = SaveModelStrategy()
 
 fl.server.start_server(
     server_address="localhost:8080",
-    config=fl.server.ServerConfig(num_rounds=10), 
+    config=fl.server.ServerConfig(num_rounds=15), 
     strategy=strategy
     )
 

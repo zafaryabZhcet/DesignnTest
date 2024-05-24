@@ -29,7 +29,7 @@ class FlowerClient(fl.client.NumPyClient):
         model.set_weights(parameters)
         print(f"Client {self.client_name} - Aggregated Weights (last layer): ", model.get_weights()[-1])
         
-        r = model.fit(x_train[rnd*20:rnd*(20)+20], y_train[rnd*20:rnd*(20)+20], epochs=1,batch_size=8, validation_data=(x_test, y_test), verbose=0)
+        r = model.fit(x_train[rnd*20:(rnd+1)*20], y_train[rnd*20:(rnd+1)*(20)], epochs=2,batch_size=8, validation_data=(x_test, y_test), verbose=0)
         # r = model.fit(x_train, y_train, epochs=1,batch_size=8, validation_data=(x_test, y_test), verbose=0)
         
         hist = r.history

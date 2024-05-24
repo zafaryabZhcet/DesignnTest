@@ -30,7 +30,7 @@ def get_dataset(target=0, client=0):
     Y = pd.read_csv(path_csv)
     Y_data = Y[Y['diagnostic_superclass']==target]
     if target==1:
-        client -= 30
+        client -= 20
         sample_size = 350
     start = client*sample_size
     Y_data = Y_data.iloc[start:start+sample_size]
