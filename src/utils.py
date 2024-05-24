@@ -22,7 +22,7 @@ def load_raw_data(df, sampling_rate, path):
 def get_dataset(target=0, client=0):
 
     path='ECG_data/'
-    path_csv = 'annotation_fed.csv'
+    path_csv = 'filtered_data.csv'
     sampling_rate=100
     sample_size = 300
     # load and convert annotation data
