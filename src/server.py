@@ -1,6 +1,7 @@
 import flwr as fl
 import numpy as np
 import csv
+from tensorflow.keras.optimizers import Adam 
 
 from utils import get_dataset,load_model
 import os 
@@ -9,7 +10,7 @@ os.environ["CUDA_VISIBLE_DEVICES"] = ""
 # Load and compile Keras model
 model = load_model()
 x_test, y_test = np.load('./X_test.npy'), np.load('./Y_test.npy')
-
+initial_parameters = fl.common.ndarrays_to_parameters(model.get_weights())
 
 # class SaveModelStrategy(fl.server.strategy.FedAvg):
 #     def __init__(self, min_fit_clients=30, min_available_clients=30, min_evaluate_clients=30, *args, **kwargs):
@@ -23,6 +24,12 @@ class SaveModelStrategy(fl.server.strategy.FedAdam):
         super().__init__(min_fit_clients=min_fit_clients,
                          min_available_clients=min_available_clients,
                          min_evaluate_clients=min_evaluate_clients,
+                         initial_parameters=initial_parameters,
+                         eta=0.001,  # Learning rate
+                         eta_l=0.001,  # Server learning rate
+                         beta_1=0.9,
+                         beta_2=0.999,
+                         tau=1e-3,  #L2 regularization
                          *args, **kwargs)
         self.client_weights = {}
 
@@ -64,13 +71,13 @@ class SaveModelStrategy(fl.server.strategy.FedAdam):
 # Create strategy and run server
 strategy = SaveModelStrategy()
 
-history=fl.server.start_server(
+fl.server.start_server(
     server_address="localhost:8080",
-    config=fl.server.ServerConfig(num_rounds=2), 
+    config=fl.server.ServerConfig(num_rounds=3), 
     strategy=strategy
     )
 
-print(history)
+
 with open("rnd.txt", 'w') as file:
     file.write(str(0))
 file.close()
