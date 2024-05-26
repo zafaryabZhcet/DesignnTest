@@ -57,12 +57,13 @@ class SaveModelStrategy(fl.server.strategy.FedAvg):
 # Create strategy and run server
 strategy = SaveModelStrategy()
 
-fl.server.start_server(
+history=fl.server.start_server(
     server_address="localhost:8080",
-    config=fl.server.ServerConfig(num_rounds=10), 
+    config=fl.server.ServerConfig(num_rounds=2), 
     strategy=strategy
     )
 
+print(history)
 with open("rnd.txt", 'w') as file:
     file.write(str(0))
 file.close()
