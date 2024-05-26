@@ -1,4 +1,3 @@
-import os
 num_copies = 30
 
 path = './src/client0.py'
@@ -14,6 +13,7 @@ for i in range(1, num_copies):
     new_content = new_content.replace(f'client=0', f'client={i}')
     if i>19:
         new_content = new_content.replace(f'target=0', f'target=1')
+        new_content = new_content.replace(f'[rnd*35:rnd*(35)+35]', f'[rnd*54:rnd*(54)+54]')
     print(f'new client: {new_client_name}')
     
     # Write the new content to the new file
