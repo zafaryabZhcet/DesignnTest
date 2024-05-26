@@ -11,7 +11,14 @@ model = load_model()
 x_test, y_test = np.load('./X_test.npy'), np.load('./Y_test.npy')
 
 
-class SaveModelStrategy(fl.server.strategy.FedAvg):
+# class SaveModelStrategy(fl.server.strategy.FedAvg):
+#     def __init__(self, min_fit_clients=30, min_available_clients=30, min_evaluate_clients=30, *args, **kwargs):
+#         super().__init__(min_fit_clients=min_fit_clients,
+#                          min_available_clients=min_available_clients,
+#                          min_evaluate_clients=min_evaluate_clients,
+#                          *args, **kwargs)
+#         self.client_weights = {}
+class SaveModelStrategy(fl.server.strategy.FedAdam):
     def __init__(self, min_fit_clients=30, min_available_clients=30, min_evaluate_clients=30, *args, **kwargs):
         super().__init__(min_fit_clients=min_fit_clients,
                          min_available_clients=min_available_clients,
