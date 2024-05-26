@@ -19,17 +19,25 @@ initial_parameters = fl.common.ndarrays_to_parameters(model.get_weights())
 #                          min_evaluate_clients=min_evaluate_clients,
 #                          *args, **kwargs)
 #         self.client_weights = {}
-class SaveModelStrategy(fl.server.strategy.FedAdam):
+# class SaveModelStrategy(fl.server.strategy.FedAdam):
+#     def __init__(self, min_fit_clients=30, min_available_clients=30, min_evaluate_clients=30, *args, **kwargs):
+#         super().__init__(min_fit_clients=min_fit_clients,
+#                          min_available_clients=min_available_clients,
+#                          min_evaluate_clients=min_evaluate_clients,
+#                          initial_parameters=initial_parameters,
+#                          eta=0.005,  # Learning rate
+#                          eta_l=0.005,  # Server learning rate
+#                          beta_1=0.85,
+#                          beta_2=0.999,
+#                          tau=1e-4,  #L2 regularization
+#                          *args, **kwargs)
+#         self.client_weights = {}
+class SaveModelStrategy(fl.server.strategy.FedAdagrad):
     def __init__(self, min_fit_clients=30, min_available_clients=30, min_evaluate_clients=30, *args, **kwargs):
         super().__init__(min_fit_clients=min_fit_clients,
                          min_available_clients=min_available_clients,
                          min_evaluate_clients=min_evaluate_clients,
                          initial_parameters=initial_parameters,
-                         eta=0.005,  # Learning rate
-                         eta_l=0.005,  # Server learning rate
-                         beta_1=0.85,
-                         beta_2=0.999,
-                         tau=1e-4,  #L2 regularization
                          *args, **kwargs)
         self.client_weights = {}
 
