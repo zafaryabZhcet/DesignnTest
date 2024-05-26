@@ -1,7 +1,6 @@
 dataset/*
 *.rar
-weights/*
-weights_fedAvg/*
+weights*
 ECG_data/*
 *.npy
 *.h5
