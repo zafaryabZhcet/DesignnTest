@@ -1,7 +1,7 @@
 import flwr as fl
 import numpy as np
 import csv
-from tensorflow.keras.optimizers import Adam 
+
 
 from utils import get_dataset,load_model
 import os 
@@ -25,11 +25,11 @@ class SaveModelStrategy(fl.server.strategy.FedAdam):
                          min_available_clients=min_available_clients,
                          min_evaluate_clients=min_evaluate_clients,
                          initial_parameters=initial_parameters,
-                         eta=0.001,  # Learning rate
-                         eta_l=0.001,  # Server learning rate
-                         beta_1=0.9,
+                         eta=0.005,  # Learning rate
+                         eta_l=0.005,  # Server learning rate
+                         beta_1=0.85,
                          beta_2=0.999,
-                         tau=1e-3,  #L2 regularization
+                         tau=1e-4,  #L2 regularization
                          *args, **kwargs)
         self.client_weights = {}
 
